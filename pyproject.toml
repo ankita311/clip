@@ -1,0 +1,27 @@
+[project]
+name = "clip"
+version = "0.1.0"
+description = "A simple url-shortening tool"
+authors = [
+    {name = "Ankita Verma",email = "ankita.av.934@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[all] (>=0.115.12,<0.116.0)",
+    "alembic (>=1.16.1,<2.0.0)",
+    "sqlalchemy (==1.4)",
+    "psycopg2 (>=2.9.10,<3.0.0)",
+    "python-jose (>=3.5.0,<4.0.0)",
+    "passlib[bcrypt] (>=1.7.4,<2.0.0)"
+]
+
+[tool.poetry]
+packages = [
+    { include = "app" },
+    { include = "cli" }
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
