@@ -1,5 +1,5 @@
 [project]
-name = "clip"
+name = "clip-cli"
 version = "0.1.0"
 description = "A simple url-shortening tool"
 authors = [
@@ -31,7 +31,6 @@ packages = [
     { include = "app" },
     { include = "cli" }
 ]
-package-mode = false
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
