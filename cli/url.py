@@ -27,11 +27,19 @@ def shorten(url = typer.Option(..., prompt=True, help="The URL that needs to be 
         
         res = r.json()
         
-        print(f"[green]URL shortened successfully![/green]")
-        print(f"[cyan]Original:[/cyan] {url}")
-        print(f"Id: {res.get('id')}")
-        print(f"[magenta]Short URL:[/magenta] {res.get('short_url', 'N/A')}")
-        print(f"[yellow]Short Code:[/yellow] {res.get('short_code', 'N/A')}")
+        content = f"""
+        [cyan]Original:[/cyan] {url}
+        ID: {res.get('id')}
+        [magenta]Short URL:[/magenta] {res.get('short_url')}
+        [yellow]Short Code:[/yellow] {res.get('short_code')} """
+
+        panel = Panel(content, 
+                      title="URL Shortened Successfully !",
+                      title_align='center',
+                      padding=(1,2),
+                      border_style='green')
+        
+        print(panel)
         
     except AuthError as e:
         print(e)
@@ -60,9 +68,9 @@ def get_by_id(id = typer.Option(..., prompt=True, help="ID of the URL to search"
         # Create and display the panel
         panel = Panel(
             content,
-            title="URL Shortened Successfully!",
+            title="URL",
             title_align="center",
-            border_style="green",
+            border_style="blue",
             padding=(1, 2)
         )
         
@@ -121,13 +129,13 @@ def redirect(short_code = typer.Option(..., prompt=True, help="Short Code of the
 
 
 @app.command(help="Custom Short Code")
-def customize(id = typer.Option(..., prompt=True, help="ID of the URL"),
-              short_code = typer.Option(..., prompt=True, help="Cutom Short Code of URL")):
+def customize(url_id = typer.Option(..., prompt=True, help="ID of the URL"),
+              new_short_code = typer.Option(..., prompt=True, help="Cutom Short Code of URL")):
     try:
         r = utils.make_authenticated_request(
-            url= f"{API_BASE_URL}/{id}",
+            url= f"{API_BASE_URL}/{url_id}",
             method="PUT",
-            data={'short_code': short_code},
+            data={'short_code': new_short_code},
             status_message="[green]Customising your URL...[/green]"
         )
 

@@ -21,19 +21,42 @@ def register(full_name: str = typer.Option(..., prompt=True, help="The name of t
              password: str = typer.Option(..., prompt=True, help="The password of the user")):
     
     try:
-        r = httpx.post(f"{API_BASE_USER}/register",
-                          json={"full_name": full_name, "email": email, "password": password})
+        with console.status("[bold green]Creating User...[/bold green]") as status:
+            r = httpx.post(f"{API_BASE_USER}/register",
+                            json={"full_name": full_name, "email": email, "password": password})
+        
+        if r.status_code == 409:
+            print("[red]User already exists[/red]")
+            raise typer.Exit(1)
+
         r.raise_for_status()
+        res = r.json()
+
+        created_date = datetime.fromisoformat(res['created_at'].replace('Z', '+00:00'))
+        formatted_date = created_date.strftime("%d-%m-%Y at %H:%M")
+
+        content = f"""ID: {res.get('id')}
+[cyan]Full Name: [/cyan] {res.get('full_name')}
+[magenta]Email: [/magenta]{res.get('email')}
+[yellow]URLs Created: [/yellow] {res.get('urls_created')}
+[green]User Created At: [/green] {formatted_date}"""
+        
+        panel = Panel(content,
+                      title="User Created Successfully!",
+                      title_align='center',
+                      border_style='green',
+                      padding=(1,2))
+        
+        print(panel)
 
     except httpx.HTTPStatusError as e:
-        print(f"[red]Oops! HTTP error {e.r.status_code}: {e.r.text}[/red]")
+        print(f"[red]Oops! HTTP error: {e}[/red]")
         raise typer.Exit(code=1)
+    
     except httpx.RequestError as e:
         print(f"[red]Oops! Network error: {e}[/red]")
         raise typer.Exit(code=1)
     
-    print(r.json())
-
 
 @app.command(help="Show user profile")
 def show_me():
