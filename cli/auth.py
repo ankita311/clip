@@ -3,9 +3,13 @@ from rich import print
 from rich.console import Console
 import httpx
 from . import utils
-from .config import settings
+# from .cliconfig import settings
+from dotenv import load_dotenv
+import os
 
-API_BASE = f"{settings.api_base}"
+load_dotenv()
+
+API_BASE = os.getenv("API_BASE")
 
 app = typer.Typer()
 console = Console()

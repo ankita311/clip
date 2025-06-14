@@ -8,12 +8,16 @@ from rich.prompt import Prompt
 import httpx
 from . import utils
 from .utils import AuthError
-from .config import settings
+# from .cliconfig import settings
+from dotenv import load_dotenv
+import os
 
 app = typer.Typer()
 console = Console()
 
-API_BASE_USER = f"{settings.api_base_user}"
+load_dotenv()
+
+API_BASE_USER = os.getenv("API_BASE_USER")
 
 
 @app.command(help="Register user")

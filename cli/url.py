@@ -10,12 +10,18 @@ from rich.align import Align
 import httpx
 from . import utils
 from .utils import AuthError
-from .config import settings
+# from .cliconfig import settings
+from dotenv import load_dotenv
+import os
 
 app = typer.Typer()
 console = Console()
 
-API_BASE_URL = f"{settings.api_base_url}"
+load_dotenv()
+
+API_BASE_URL = os.getenv("API_BASE_URL")
+
+# API_BASE_URL = f"{settings.api_base_url}"
 
 @app.command(help="Shorten Url")
 def shorten(url = typer.Option(..., prompt=True, help="The URL that needs to be shortened")):
