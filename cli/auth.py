@@ -3,8 +3,9 @@ from rich import print
 from rich.console import Console
 import httpx
 from . import utils
+from .config import settings
 
-API_BASE = "http://localhost:8000"
+API_BASE = f"{settings.api_base}"
 
 app = typer.Typer()
 console = Console()

@@ -8,11 +8,12 @@ from rich.prompt import Prompt
 import httpx
 from . import utils
 from .utils import AuthError
+from .config import settings
 
 app = typer.Typer()
 console = Console()
 
-API_BASE_USER = "http://localhost:8000/user"
+API_BASE_USER = f"{settings.api_base_user}"
 
 
 @app.command(help="Register user")

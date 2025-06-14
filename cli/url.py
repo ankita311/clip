@@ -10,11 +10,12 @@ from rich.align import Align
 import httpx
 from . import utils
 from .utils import AuthError
+from .config import settings
 
 app = typer.Typer()
 console = Console()
 
-API_BASE_URL = "http://localhost:8000/url"
+API_BASE_URL = f"{settings.api_base_url}"
 
 @app.command(help="Shorten Url")
 def shorten(url = typer.Option(..., prompt=True, help="The URL that needs to be shortened")):
