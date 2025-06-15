@@ -10,7 +10,7 @@ app.add_typer(url.app, name="url", help="Url-specific commands")
 
 @app.command(help="Welcome greeting")
 def hi(name: str = typer.Option(..., prompt = True, help="Name of the user")):
-    print(f"Hi {name}, welcome to clip. your very own url shortner!")
+    print(f"Hi {name}, welcome to clipper. your very own url shortner!")
 
 if __name__ == '__main__':
     app()

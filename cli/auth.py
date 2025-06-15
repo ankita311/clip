@@ -3,13 +3,12 @@ from rich import print
 from rich.console import Console
 import httpx
 from . import utils
-# from .cliconfig import settings
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-API_BASE = os.getenv("API_BASE")
+API_BASE = os.getenv("API_BASE", "https://clip-huug.onrender.com")
 
 app = typer.Typer()
 console = Console()

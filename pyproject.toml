@@ -1,6 +1,6 @@
 [project]
 name = "clip-cli"
-version = "0.1.0"
+version = "0.5.0"
 description = "A simple url-shortening tool"
 authors = [
     {name = "Ankita Verma",email = "ankita.av.934@gmail.com"}
@@ -24,7 +24,7 @@ Repository = "https://github.com/ankita311/clip"
 Documentation = "https://github.com/ankita311/clip#readme"
 
 [project.scripts]
-clip = "cli.main:main"
+clipper = "cli.main:app"
 
 [tool.poetry]
 packages = [

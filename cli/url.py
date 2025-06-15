@@ -19,7 +19,7 @@ console = Console()
 
 load_dotenv()
 
-API_BASE_URL = os.getenv("API_BASE_URL")
+API_BASE_URL = os.getenv("API_BASE_URL", "https://clip-huug.onrender.com/url")
 
 # API_BASE_URL = f"{settings.api_base_url}"
 

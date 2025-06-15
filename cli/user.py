@@ -17,7 +17,8 @@ console = Console()
 
 load_dotenv()
 
-API_BASE_USER = os.getenv("API_BASE_USER")
+# API_BASE_USER = os.getenv("API_BASE_USER")
+API_BASE_USER = os.getenv("API_BASE_USER", "https://clip-huug.onrender.com/user")
 
 
 @app.command(help="Register user")
@@ -212,6 +213,7 @@ def dashboard():
        
         table = Table(show_header=True, header_style="bold cyan", box=None, padding=(0, 1))
         
+        table.add_column("ID", max_width=4)
         table.add_column("URL", style="bright_blue", max_width=100)
         table.add_column("Code", style="bright_magenta", justify="center", min_width=8)
         table.add_column("Clicks", style="bright_green", justify="center", min_width=4)
@@ -226,6 +228,7 @@ def dashboard():
             url = item['original'].replace('https://', '').replace('http://', '')
             
             table.add_row(
+                str(item['id']),
                 url,
                 f"[bold]{item['short_code']}[/bold]",
                 str(item['clicks']),

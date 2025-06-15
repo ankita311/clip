@@ -124,6 +124,7 @@ def delete_url(id: int, db: Session = Depends(database.get_db), current_user: mo
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not allowed to perform this action")
     
     url_query.delete(synchronize_session=False)
+    current_user.urls_created -= 1
     db.commit()
 
     return Response(status_code=status.HTTP_204_NO_CONTENT)
